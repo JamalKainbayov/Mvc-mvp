@@ -13,7 +13,6 @@ class LoginController {
             $user = $userModel->getUserByEmail($email);
 
             if ($user && password_verify($password, $user['password'])) {
-                // Sla informatie van de gebruiker op in de sessie
                 $_SESSION['user'] = [
                     'id' => $user['id'],
                     'email' => $user['email'],

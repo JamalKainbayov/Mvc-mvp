@@ -4,7 +4,7 @@ class PostModel {
 
     public function __construct() {
         try {
-            $this->db = new PDO('mysql:host=localhost;dbname=blog_project', 'root', '');
+            $this->db = new PDO('mysql:host=localhost;dbname=posts', 'root', '');
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage();

@@ -32,10 +32,11 @@
                                 }
                             } catch (Exception $e) {
                                 echo "Error: " . $e->getMessage();
-                                // You might want to log this error 
+
                             }
                         } else {
                             echo "Invalid request method";
                         }
                     }
+
                 }
