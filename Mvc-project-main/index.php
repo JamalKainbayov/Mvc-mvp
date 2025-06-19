@@ -1,5 +1,4 @@
 <?php
-// Autoloading for controllers and models
 spl_autoload_register(function ($class_name) {
     $directories = [
         'controllers' => __DIR__ . '/controllers/',
@@ -15,28 +14,33 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+$action = $_GET['action'] ?? 'index';
+$id = $_GET['id'] ?? null;
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'index';
-$id = isset($_GET['id']) ? $_GET['id'] : null;
-
-// Routing
-if ($action === 'index' || $action === '') {
+if ($action === 'index') {
     $controller = new PostController();
     $controller->index();
+
 } elseif ($action === 'create') {
     $controller = new PostController();
     $controller->create();
+
 } elseif ($action === 'detail' && $id) {
     $controller = new PostController();
     $controller->detail($id);
-} elseif ($action === 'register' || $action === 'login') {
-    $userController = new UserController();
-    if ($action === 'register') {
-        $userController->register();
-    } elseif ($action === 'login') {
-        $userController->login();
-    }
+
+} elseif ($action === 'register') {
+    $controller = new UserController();
+    $controller->register();
+
+} elseif ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'GET') {
+    $controller = new UserController();
+    $controller->login();
+
+} elseif ($action === 'login' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $controller = new UserController();
+    $controller->handleLogin();
+
 } else {
     echo "404 - Page not found";
 }
-?>
