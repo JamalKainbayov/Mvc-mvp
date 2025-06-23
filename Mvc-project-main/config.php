@@ -1,13 +1,13 @@
 <?php
 // config.php
 
-$host = 'localhost';  // Je hostnaam
-$dbname = 'blog_project';  // Je database naam
-$username = 'root';  // Je database gebruikersnaam
-$password = '';  // Je database wachtwoord
+$host = 'localhost';
+$dbname = 'blog_project';
+$username = 'root';
+$password = '';
 
 try {
-    // Maak verbinding met de database
+    // verbinding met database maken
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {

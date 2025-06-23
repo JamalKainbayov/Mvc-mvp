@@ -1,9 +1,9 @@
 <?php
 
-/* Servers configuration */
+
 $i = 0;
 
-/* First server */
+
 $i++;
 $cfg['Servers'][$i]['host'] = 'localhost';
 $cfg['Servers'][$i]['port'] = '3306';
@@ -15,4 +15,4 @@ $cfg['Servers'][$i]['auth_type'] = 'cookie';
 $cfg['Servers'][$i]['user'] = 'root';
 $cfg['Servers'][$i]['password'] = 'your_password';
 
-/* End of servers configuration */
+
