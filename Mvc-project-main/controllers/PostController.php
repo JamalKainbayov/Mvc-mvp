@@ -1,53 +1,52 @@
 <?php
 
-                require_once __DIR__ . '/../models/PostModel.php';
+require_once __DIR__ . '/../models/PostModel.php';
 
-                class PostController
-                {
-                    private $postModel;
+class PostController
+{
+    private $postModel;
 
-                    public function __construct()
-                    {
-                        $this->postModel = new PostModel();
-                        include 'views/layout.php';
-                    }
+    public function __construct()
+    {
+        $this->postModel = new PostModel();
+    }
 
+    public function index()
+    {
+        $posts = $this->postModel->getAllPosts();
+        $title = "Home";
 
-                    public function index()
-                    {
-                        $posts = $this->postModel->getAllPosts();
-                        require __DIR__ . '/../views/home.php';
+        // Render the home view
+        ob_start();
+        require __DIR__ . '/../views/home.php';
+        $content = ob_get_clean();
 
-                        $title = "Home";
+        require __DIR__ . '/../views/layout.php';
+    }
 
-                        ob_start();
-                        
-                        $content = ob_get_clean();
+    public function create()
+    {
+        // No session_start here because it's started in index.php
 
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $title = $_POST['title'] ?? '';
+            $content = $_POST['content'] ?? '';
+            $user_id = $_SESSION['user_id']; // Now user_id is set on login
 
-                    }
-                    public function create()
-                    {
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                            $title = $_POST['title'] ?? ''; 
-                            $content = $_POST['content'] ?? '';
-
-                            try {
-                                if ($this->postModel->createPost($title, $content)) {
-                                    header('Location: index.php');
-                                    exit;
-                                } else {
-                                    throw new Exception("Error creating post");
-                                }
-                            } catch (Exception $e) {
-                                echo "Error: " . $e->getMessage();
-
-                            }
-                        } else {
-                            echo "Invalid request method";
-                        }
-                    }
-
-                }
-
+            if ($this->postModel->createPost($title, $content, $user_id)) {
+                header('Location: index.php?action=index');
+                exit;
+            } else {
+                echo "Error creating post";
+            }
+        } else {
+            echo "Invalid request method";
+        }
+    }
+}
+?>

@@ -2,7 +2,7 @@
 // config.php
 
 $host = 'localhost';
-$dbname = 'blog_project';
+$dbname = 'mvc_project';
 $username = 'root';
 $password = '';
 

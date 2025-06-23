@@ -4,21 +4,17 @@ class UserModel {
 
     public function __construct() {
         try {
-            $this->db = new PDO('mysql:host=localhost;dbname=blog_project', 'root', '');
+            $this->db = new PDO('mysql:host=localhost;dbname=mvc_project', 'root', '');
             $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            die("Connection failed: " . $e->getMessage());
         }
     }
 
-    public function createUser($username, $password) {
+    public function createUser($username, $email, $password) {
         try {
-            $stmt = $this->db->prepare('INSERT INTO users (username, password, created_at) VALUES (?, ?, NOW())');
-            $result = $stmt->execute([$username, $password]);
-            if (!$result) {
-                throw new Exception("Failed to insert user");
-            }
-            return true;
+            $stmt = $this->db->prepare('INSERT INTO users (username, email, password, created_at) VALUES (?, ?, ?, NOW())');
+            return $stmt->execute([$username, $email, $password]);
         } catch (PDOException $e) {
             throw new Exception("Database error: " . $e->getMessage());
         }

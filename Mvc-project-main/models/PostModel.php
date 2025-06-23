@@ -13,7 +13,12 @@ class PostModel {
 
     public function getAllPosts() {
         try {
-            $stmt = $this->db->query('SELECT * FROM posts');
+            $stmt = $this->db->query('
+                SELECT posts.*, users.username 
+                FROM posts 
+                JOIN users ON posts.user_id = users.id
+                ORDER BY posts.created_at DESC
+            ');
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Database error: " . $e->getMessage());
@@ -30,10 +35,10 @@ class PostModel {
         }
     }
 
-    public function createPost($title, $content) {
+    public function createPost($title, $content, $user_id) {
         try {
-            $stmt = $this->db->prepare('INSERT INTO posts (title, content, created_at) VALUES (?, ?, NOW())');
-            $result = $stmt->execute([$title, $content]);
+            $stmt = $this->db->prepare('INSERT INTO posts (title, content, user_id, created_at) VALUES (?, ?, ?, NOW())');
+            $result = $stmt->execute([$title, $content, $user_id]);
             if (!$result) {
                 throw new Exception("Failed to insert post");
             }
