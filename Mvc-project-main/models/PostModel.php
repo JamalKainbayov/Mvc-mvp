@@ -13,7 +13,7 @@ class PostModel {
 
     public function getAllPosts() {
         try {
-            $stmt = $this->db->query('SELECT * FROM mvc_project');
+            $stmt = $this->db->query('SELECT * FROM posts');
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             throw new Exception("Database error: " . $e->getMessage());

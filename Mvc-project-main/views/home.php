@@ -4,24 +4,11 @@
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Twitter home</title>
-            <style>
-                body {
-                    font-family: Arial, sans-serif;
-                    max-width: 800px;
-                    margin: 0 auto;
-                    padding: 20px;
-                }
-                .post-form {
-                    margin-bottom: 20px;
-                }
-                .post {
-                    border: 1px solid #ccc;
-                    padding: 10px;
-                    margin-bottom: 10px;
-                }
-            </style>
+            <link href="../css/home.css"
+
         </head>
         <body>
+        <div>
         <h1>Welcome to My twitter site
             copyright &copy; 2023 M. Wissenburg J. je hebt een moeilijke achternaam
         </h1>
@@ -46,5 +33,6 @@
         <?php else: ?>
             <p>No posts yet.</p>
         <?php endif; ?>
+        </div>
         </body>
         </html>

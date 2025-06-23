@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Mvc-project/css/style.css">
+    <link rel="stylesheet" href="/../css/home.css">
     <title>Login</title>
 </head>
-<body>
+<body >
 <h1>Login</h1>
 <form action="/Mvc-project/index.php?action=login" method="post">
     <label for="username">Username:</label>

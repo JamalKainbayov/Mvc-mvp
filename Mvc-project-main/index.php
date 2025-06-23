@@ -1,5 +1,5 @@
 <?php
-// Autoloading for controllers and models
+// Autoloading voor controllers en models
 spl_autoload_register(function ($class_name) {
     $directories = [
         'controllers' => __DIR__ . '/controllers/',

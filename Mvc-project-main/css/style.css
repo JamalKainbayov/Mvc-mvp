@@ -1,4 +1,4 @@
-/* Algemene opmaak */
+
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
@@ -13,7 +13,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-/* Formulier container */
+
 form {
     max-width: 400px;
     margin: 50px auto;
@@ -23,7 +23,7 @@ form {
     border-radius: 8px;
 }
 
-/* Labels */
+
 form label {
     display: block;
     margin-bottom: 8px;
@@ -31,7 +31,7 @@ form label {
     color: #555;
 }
 
-/* Input velden */
+
 form input {
     width: 100%;
     padding: 10px;
@@ -41,14 +41,14 @@ form input {
     box-sizing: border-box;
 }
 
-/* Input hover effect */
+
 form input:focus {
     border-color: #007bff;
     outline: none;
     box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
 }
 
-/* Knoppen */
+
 form button {
     width: 100%;
     padding: 10px;
@@ -65,8 +65,106 @@ form button:hover {
     background-color: #0056b3;
 }
 
-/* Foutmeldingen */
+
 p {
     text-align: center;
     font-size: 14px;
+}
+/* Reset & base styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background-color: #f5f8fa;
+    color: #0f1419;
+}
+
+/* Container holds sidebar and main content */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar styles */
+.sidebar {
+    width: 250px;
+    background-color: #000; /* Dark like Twitter's sidebar */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+
+
+}
+
+/* Logo or header in sidebar */
+.nav h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #1da1f2;
+
+}
+
+/* Sidebar menu */
+.nav ul {
+    list-style-type: none;
+
+}
+
+.nav ul li {
+    margin-bottom: 20px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 9999px;
+    transition: background-color 0.2s;
+}
+
+.nav ul li a:hover {
+    background-color: #1da1f2;
+    color: white;
+}
+
+/* Main content area */
+.main-content {
+    left: 0;
+    padding: 40px;
+    background-color: #f4f4f9;
+}
+
+/* Responsive (optional) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+}
+.sidebar {
+
+    left: 0;
+    top: 0;
 }
