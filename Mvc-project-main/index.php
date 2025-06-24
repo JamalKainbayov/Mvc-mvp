@@ -1,9 +1,15 @@
 <?php
-// Autoloading voor controllers en models
+session_start();
+
+if (!isset($_GET['action'])) {
+    header('Location: index.php?action=index');
+    exit;
+}
+
 spl_autoload_register(function ($class_name) {
     $directories = [
-        'controllers' => __DIR__ . '/controllers/',
-        'models' => __DIR__ . '/models/'
+        __DIR__ . '/controllers/',
+        __DIR__ . '/models/'
     ];
 
     foreach ($directories as $directory) {
@@ -15,28 +21,51 @@ spl_autoload_register(function ($class_name) {
     }
 });
 
+$action = $_GET['action'] ?? 'index';
+$id = $_GET['id'] ?? null;
 
-$action = isset($_GET['action']) ? $_GET['action'] : 'index';
-$id = isset($_GET['id']) ? $_GET['id'] : null;
+switch ($action) {
+    case 'index':
+        $controller = new PostController();
+        $controller->index();
+        break;
 
-// Routing
-if ($action === 'index' || $action === '') {
-    $controller = new PostController();
-    $controller->index();
-} elseif ($action === 'create') {
-    $controller = new PostController();
-    $controller->create();
-} elseif ($action === 'detail' && $id) {
-    $controller = new PostController();
-    $controller->detail($id);
-} elseif ($action === 'register' || $action === 'login') {
-    $userController = new UserController();
-    if ($action === 'register') {
+    case 'create':
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
+        $controller = new PostController();
+        $controller->create();
+        break;
+
+    case 'detail':
+        if ($id) {
+            $controller = new PostController();
+            $controller->detail($id);
+        } else {
+            echo "404 - Page not found";
+        }
+        break;
+
+    case 'register':
+        $userController = new UserController();
         $userController->register();
-    } elseif ($action === 'login') {
+        break;
+
+    case 'login':
+        $userController = new UserController();
         $userController->login();
-    }
-} else {
-    echo "404 - Page not found";
+        break;
+
+    case 'logout':
+        session_destroy();
+        header('Location: index.php?action=login');
+        exit;
+        break;
+
+    default:
+        echo "404 - Page not found";
+        break;
 }
 ?>
