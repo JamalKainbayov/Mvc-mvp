@@ -1,19 +1,17 @@
 <?php
-// Create Admin User Script
-// Run this file to create an admin user for testing
 
 require_once 'models/UserModel.php';
 
 try {
     $userModel = new UserModel();
     
-    // Admin user details
+
     $username = 'admin';
     $email = 'admin@example.com';
-    $password = password_hash('admin123', PASSWORD_DEFAULT); // Change this password!
+    $password = password_hash('admin123', PASSWORD_DEFAULT);
     $role = 'admin';
     
-    // Check if admin user already exists
+
     $existingUser = $userModel->getUserByUsername($username);
     
     if ($existingUser) {
@@ -21,7 +19,7 @@ try {
         echo "Username: " . $existingUser['username'] . "\n";
         echo "Email: " . $existingUser['email'] . "\n";
     } else {
-        // Create admin user
+
         $result = $userModel->createUser($username, $email, $password, $role);
         
         if ($result) {
