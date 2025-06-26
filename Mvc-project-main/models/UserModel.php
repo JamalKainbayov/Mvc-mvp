@@ -1,33 +1,48 @@
 <?php
-class UserModel {
+namespace App\Models;
+
+use PDO;
+use PDOException;
+
+class User
+{
     private $db;
 
-    public function __construct() {
-        try {
-            $this->db = new PDO('mysql:host=localhost;dbname=mvc_project', 'root', '');
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e) {
-            die("Connection failed: " . $e->getMessage());
-        }
+    public function __construct()
+    {
+        $this->db = new PDO("mysql:host=localhost;dbname=mvc_project", "root", "");
     }
 
-    public function createUser($username, $email, $password, $role = 'user') {
-        try {
-            $stmt = $this->db->prepare('INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())');
-            return $stmt->execute([$username, $email, $password, $role]);
-        } catch (PDOException $e) {
-            throw new Exception("Database error: " . $e->getMessage());
+    public static function where($column, $value)
+    {
+        $instance = new self();
+        $stmt = $instance->db->prepare("SELECT * FROM users WHERE $column = :value LIMIT 1");
+        $stmt->bindParam(':value', $value);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            $userObj = new self();
+            foreach ($user as $key => $val) {
+                $userObj->$key = $val;
+            }
+            return $userObj;
         }
+        return null;
     }
 
-    public function getUserByUsername($username) {
-        try {
-            $stmt = $this->db->prepare('SELECT * FROM users WHERE username = ?');
-            $stmt->execute([$username]);
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            throw new Exception("Database error: " . $e->getMessage());
-        }
+    public function save()
+    {
+        $stmt = $this->db->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
+        return $stmt->execute([
+            ':username' => $this->username,
+            ':email' => $this->email,
+            ':password' => $this->password,
+        ]);
+    }
+
+    public function __get($name)
+    {
+        return $this->$name ?? null;
     }
 }
-?>
