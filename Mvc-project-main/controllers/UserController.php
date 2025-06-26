@@ -47,7 +47,8 @@ class UserController
                     $_SESSION['user'] = [
                         'id' => $user['id'],
                         'email' => $user['email'],
-                        'username' => $user['username']
+                        'username' => $user['username'],
+                        'role' => $user['role'] ?? 'user',
                     ];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['user_id'] = $user['id']; // <-- THIS LINE FIXES THE LOGIN CHECK

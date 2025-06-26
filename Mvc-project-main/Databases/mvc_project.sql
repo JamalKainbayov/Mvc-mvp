@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2025 at 11:49 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Gegenereerd op: 26 jun 2025 om 12:32
+-- Serverversie: 10.4.32-MariaDB
+-- PHP-versie: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Tabelstructuur voor tabel `posts`
 --
 
 CREATE TABLE `posts` (
@@ -36,16 +36,18 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `posts`
+-- Gegevens worden geëxporteerd voor tabel `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `created_at`, `user_id`) VALUES
-(1, 'test1', 'lmao', '2025-06-19 12:38:02', NULL);
+(1, 'test1', 'lmao', '2025-06-19 12:38:02', NULL),
+(2, 'Haaloi', 'Haallooo\r\n', '2025-06-24 11:58:17', 2),
+(3, 'goeden dag', 'haloo ik houd van mannen\r\n', '2025-06-26 12:30:16', 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Tabelstructuur voor tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -54,41 +56,49 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
-  `username` varchar(255) NOT NULL
+  `username` varchar(255) NOT NULL,
+  `role` varchar(50) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Indexes for dumped tables
+-- Gegevens worden geëxporteerd voor tabel `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `created_at`, `username`, `role`) VALUES
+(2, '', 'martijnwissenburg@gmail.com', '$2y$10$k18rDQ6oJ5QBjEueig/j0uxlO8Hz6fsCYM6rpkfG/YDVs5jKGHvpG', '2025-06-24 11:58:07', 'Goldenraven65', 'admin');
+
+--
+-- Indexen voor geëxporteerde tabellen
 --
 
 --
--- Indexes for table `posts`
+-- Indexen voor tabel `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indexen voor tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT voor geëxporteerde tabellen
 --
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT voor een tabel `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT voor een tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

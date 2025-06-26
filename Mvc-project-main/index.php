@@ -26,6 +26,7 @@ $id = $_GET['id'] ?? null;
 
 switch ($action) {
     case 'index':
+    case 'home':
         $controller = new PostController();
         $controller->index();
         break;
@@ -62,6 +63,24 @@ switch ($action) {
         session_destroy();
         header('Location: index.php?action=login');
         exit;
+        break;
+
+    case 'admin':
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+            header('Location: index.php?action=login');
+            exit;
+        }
+        $controller = new AdminController();
+        $controller->index();
+        break;
+
+    case 'admin-users':
+        if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') {
+            header('Location: index.php?action=login');
+            exit;
+        }
+        $controller = new AdminController();
+        $controller->manageUsers();
         break;
 
     default:

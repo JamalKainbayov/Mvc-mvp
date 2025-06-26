@@ -36,7 +36,12 @@ class PostController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = $_POST['title'] ?? '';
             $content = $_POST['content'] ?? '';
-            $user_id = $_SESSION['user_id']; // Now user_id is set on login
+            $user_id = $_SESSION['user_id'];
+            $role = $_SESSION['user']['role'] ?? 'user';
+            if (empty($title) || empty($content)) {
+                echo "Title and content cannot be empty";
+                return;
+            }            
 
             if ($this->postModel->createPost($title, $content, $user_id)) {
                 header('Location: index.php?action=index');

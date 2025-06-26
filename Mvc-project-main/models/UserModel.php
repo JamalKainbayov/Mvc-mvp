@@ -11,10 +11,10 @@ class UserModel {
         }
     }
 
-    public function createUser($username, $email, $password) {
+    public function createUser($username, $email, $password, $role = 'user') {
         try {
-            $stmt = $this->db->prepare('INSERT INTO users (username, email, password, created_at) VALUES (?, ?, ?, NOW())');
-            return $stmt->execute([$username, $email, $password]);
+            $stmt = $this->db->prepare('INSERT INTO users (username, email, password, role, created_at) VALUES (?, ?, ?, ?, NOW())');
+            return $stmt->execute([$username, $email, $password, $role]);
         } catch (PDOException $e) {
             throw new Exception("Database error: " . $e->getMessage());
         }
