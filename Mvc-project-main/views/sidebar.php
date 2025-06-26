@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <nav class="nav">
     <h2>X</h2>
     <ul>
-        <li><a href="/index.php?action=home">Home</a></li>
+        <li><a href="http://localhost/Mvc-mvp/Mvc-project-main/index.php?action=index">Home</a></li>
         <li><a href="/index.php?action=users">Profile</a></li>
         <li><a href="#">Notifications</a></li>
         <li><a href="#">Messages</a></li>
