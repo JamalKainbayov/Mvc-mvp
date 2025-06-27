@@ -49,6 +49,24 @@ switch ($action) {
         }
         break;
 
+    case 'like':
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
+        $controller = new PostController();
+        $controller->like($id);
+        break;
+
+    case 'unlike':
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: index.php?action=login');
+            exit;
+        }
+        $controller = new PostController();
+        $controller->unlike($id);
+        break;
+
     case 'register':
         $userController = new UserController();
         $userController->register();
@@ -87,4 +105,5 @@ switch ($action) {
         echo "404 - Page not found";
         break;
 }
+
 ?>
