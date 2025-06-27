@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,6 +38,17 @@
             <div class="post">
                 <p><?php echo htmlspecialchars($post['content']); ?></p>
                 <small>Posted by: <?php echo isset($post['username']) ? htmlspecialchars($post['username']) : 'Unknown'; ?> on <?php echo $post['created_at']; ?></small>
+
+                <div class="like-section">
+                    <?php if (isset($_SESSION['username'])): ?>
+                        <?php if ($post['liked']): ?>
+                            <a href="index.php?action=unlike&id=<?= $post['id'] ?>">💔 Unlike</a>
+                        <?php else: ?>
+                            <a href="index.php?action=like&id=<?= $post['id'] ?>">❤️ Like</a>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    <span><?= $post['like_count'] ?> like<?= $post['like_count'] != 1 ? 's' : '' ?></span>
+                </div>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
